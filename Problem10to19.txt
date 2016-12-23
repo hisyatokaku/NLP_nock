@@ -1,6 +1,7 @@
-solve_11: wc -l hightemp.txt
-solve_12: sed s/$'\t'/$' '/g hightemp.txt
-solve_13: cut 1-1 hightemp.txt > col1.txt | cut 2-2 hightemp.txt > col2.txt
+solve_10: wc -l hightemp.txt
+solve_11: sed s/$'\t'/$' '/g hightemp.txt
+solve_12: cut 1-1 hightemp.txt > col1.txt | cut 2-2 hightemp.txt > col2.txt
+solve_13: paste -d"\t" col1.txt col2.txt
 solve_14: head -n10 hightemp.txt
 solve_15: tailspl -n10 hightemp.txt
 solve_16: split -l 10 hightemp.txt > test.txt
