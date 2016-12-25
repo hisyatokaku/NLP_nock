@@ -8,7 +8,7 @@ def solve_20():
         for sub_article in articles:
             tmp = json.loads(sub_article)
             if u'イギリス' in tmp['title']:
-                print tmp['text']
+                #print tmp['text']
                 return tmp['text']
 
 def solve_21():
@@ -17,6 +17,14 @@ def solve_21():
     for line in target:
         res = cate.search(line)
         if res is not None:
+            print line
+
+def solve_22():
+    target = solve_20().split("\n")
+    category = re.compile('[\[]{1,}(Category:)(.*)')
+    #category = re.compile('(Category:)(.*)')
+    for line in target:
+        res = category.search(line)
+        if res is not None:
             print res.group()
 
-solve_21()
