@@ -28,3 +28,19 @@ def solve_22():
         if res is not None:
             print res.group()
 
+def solve_23():
+    target = solve_20().split("\n")
+    eq = re.compile('=')
+    seq = re.compile('==')
+    for line in target:
+        res = eq.findall(line)
+        if len(res) > 1 and seq.search(line) is not None:
+            print line,"レベル:{}".format(len(res)/2 - 1)
+
+def solve_24():
+    target = solve_20().split("\n")
+    fi = re.compile(u'(ファイル:|File:)(.*?)\|')
+    for line in target:
+        res = fi.search(line)
+        if res is not None:
+            print res.group(1),res.group(2)
