@@ -8,5 +8,3 @@ solve_16: split -l 10 hightemp.txt > test.txt
 solve_17: cat hightemp.txt | sort | uniq
 solve_18: sort hightemp.txt -k3 -r
 solve_19: cut -f1 hightemp.txt | sort -r | uniq
-
-
