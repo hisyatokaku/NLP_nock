@@ -1,6 +1,12 @@
 #coding:utf-8
 import re
 import json
+import urllib
+import urllib2
+from pprint import pprint
+
+
+
 
 def solve_20():
     with open('jawiki-country.json','r') as f:
@@ -97,3 +103,24 @@ def solve_28():
             dict[res.group(1)] = value
     for k, v in dict.iteritems():
         print k, v
+
+
+def solve_29():
+    target = solve_20().split("\n")
+    FILE = re.compile("[A-z](.*)")
+    imgurl = re.compile("(https:(.*?))&")
+    for i in target:
+        #print i
+        if u"国旗画像" in i:
+            title = FILE.search(i)
+            FILENAME = re.sub("\s","_",title.group())
+            break
+
+    URL = "http://en.wikipedia.org/w/api.php?action=query&titles=FILE:{}&prop=imageinfo&iiprop=url".format(FILENAME)
+    f = urllib.urlopen(URL)
+    for line in  f.read().split("\n"):
+        if ";url" in line:
+            print line
+            ans = imgurl.search(line)
+            if ans is not None:
+                print ans.group(1)
