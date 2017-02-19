@@ -1,5 +1,6 @@
 #coding:utf-8
 import random
+
 def solve_0(string = "stressed"):
     print string[::-1]
 
