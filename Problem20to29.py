@@ -115,7 +115,6 @@ def solve_29():
             title = FILE.search(i)
             FILENAME = re.sub("\s","_",title.group())
             break
-
     URL = "http://en.wikipedia.org/w/api.php?action=query&titles=FILE:{}&prop=imageinfo&iiprop=url".format(FILENAME)
     f = urllib.urlopen(URL)
     for line in  f.read().split("\n"):
