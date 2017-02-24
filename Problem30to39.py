@@ -21,7 +21,8 @@ def solve_30(output=False):
     sentences , single = [],[]
     for line in lines:
         if line == "EOS\n":
-            sentences.append(single)
+            if len(single) != 0:
+                sentences.append(single)
             single = []
             continue
         if len(line) == 0:
@@ -47,8 +48,27 @@ def solve_30(output=False):
 
 def solve_31():
     mapped = solve_30()
-    print mapped[0:1]
-    print mapped[1]
+    for i in mapped:
+        if len(i) != 0:
+            for j in i:
+                if '動詞-' in j['pos']:
+                    print j['surface']
 
-solve_31()
+def solve_32():
+    mapped = solve_30()
+    for i in mapped:
+        if len(i) != 0:
+            for j in i:
+                if '動詞-' in j['pos']:
+                    print j['base']
+
+def solve_33():
+    mapped = solve_30()
+    for i in mapped:
+        if len(i) != 0:
+            for j in i:
+                if '名詞' in j['pos']:
+                    print j['base'],j['pos1']
+
+solve_33()
 
