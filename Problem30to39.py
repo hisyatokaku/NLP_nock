@@ -2,6 +2,9 @@
 import MeCab
 import os
 import codecs
+import matplotlib.pyplot as plt
+import numpy as np
+
 from pprint import pprint
 
 FILE = "neko.txt"
@@ -67,8 +70,47 @@ def solve_33():
     for i in mapped:
         if len(i) != 0:
             for j in i:
-                if '名詞' in j['pos']:
-                    print j['base'],j['pos1']
+                if '名詞' in j['pos'] and 'サ変接続' in j['pos']:
+                    print j['base']
 
-solve_33()
+def solve_34():
+    mapped = solve_30()
+    for i in mapped:
+        if len(i) != 0:
+            for one,two,thr in zip(i,i[1:],i[2:]):
+                if ('名詞' in one['pos']) and ('名詞' in thr['pos']) and (two['base'] == 'の'):
+                    print one['base'],two['base'],thr['base']
+
+def solve_35():
+    mapped = solve_30()
+    maxlen = 0
+    tmp , ans = [],{}
+    for i in mapped:
+        if len(i) != 0:
+            for word in i:
+                if '名詞' in word['pos']:
+                    tmp.append(word['base'])
+                else:
+                    if len(tmp) > maxlen:
+                        maxlen = len(tmp)
+                        ans[str(len(tmp))] = ' '.join(tmp)
+                    tmp = []
+    print ans[str(max(map(int,sorted(ans,key = lambda x:x[0]))))]
+
+def solve_36():
+    from collections import Counter
+    mapped = solve_30()
+    wlist = []
+    for i in mapped:
+        for word in i:
+            wlist.append(word['base'])
+    ans = Counter(wlist)
+    word,num = zip(*ans.most_common(10))
+    print word
+    x = np.arange(10)
+    plt.bar(x,list(num),align='center')
+    plt.xticks(x,[unicode(k,'utf-8') for k in word])
+    #plt.savefig('./36.png')
+
+solve_36()
 
