@@ -156,7 +156,3 @@ def solve_39():
     plt.plot(x,y)
     plt.grid(which="both")
     plt.show()
-
-
-
-
