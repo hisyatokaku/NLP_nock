@@ -97,7 +97,26 @@ def solve_35():
                     tmp = []
     print ans[str(max(map(int,sorted(ans,key = lambda x:x[0]))))]
 
+
 def solve_36():
+
+def solve_36(isprint=False):
+    from collections import Counter
+    mapped = solve_30()
+    wlist = []
+    for i in mapped:
+        for word in i:
+            wlist.append(word['base'])
+    ans = Counter(wlist).items()
+    ans = (sorted(ans, key=lambda x: x[1], reverse=True))
+    word,num = zip(*ans)
+    if isprint:
+        for w,n in zip(word,num):
+            print w,n
+    return word,num
+
+def solve_37():
+
     from collections import Counter
     mapped = solve_30()
     wlist = []
@@ -110,7 +129,35 @@ def solve_36():
     x = np.arange(10)
     plt.bar(x,list(num),align='center')
     plt.xticks(x,[unicode(k,'utf-8') for k in word])
+
     #plt.savefig('./36.png')
 
 solve_36()
+
+    plt.show()
+    #plt.savefig('./36.png')
+
+def solve_38():
+    word , num = solve_36(isprint=False)
+    plt.hist(num)
+    plt.xlabel('Frequency')
+    plt.ylabel('Counts')
+    plt.show()
+
+def solve_39():
+    word, num = solve_36(isprint=False)
+    x = range(1,len(num)+1)
+    y = num
+    plt.xscale('log')
+    plt.yscale('log')
+
+    plt.xlabel('log(Grade)')
+    plt.ylabel('log(Frequency)')
+
+    plt.plot(x,y)
+    plt.grid(which="both")
+    plt.show()
+
+
+
 
