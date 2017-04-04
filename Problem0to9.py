@@ -76,4 +76,3 @@ def solve_9(string = "I couldn't believe that I could actually understand what I
     string = string.split()
     for word in string:
         print shuffle_char(word),
-
