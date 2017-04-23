@@ -18,7 +18,34 @@ def solve_60():
 
 def solve_61():
     _ = redis.Redis(host='localhost',
-                    port=6379,db=0)
+                    port=6379,db=2)
     print _.get('Comas')
 
-solve_61()
+def solve_62():
+    _ = redis.Redis(host='localhost',
+                    port=6379,db=2)
+    ans = 0
+    keys = _.keys(pattern='*')
+    for key in keys:
+        if _.get(key) == 'Japan':
+           ans += 1
+    print ans
+    return ans
+
+def solve_63():
+    DB_NO = 0
+    db = redis.Redis(host='localhost',
+                    port=6379,db=DB_NO)
+    with open('./artist.json','r') as f:
+        for line in f:
+            data = json.loads(line)
+            try:
+                db.set(data['name'],data['tags'])
+            except:
+                pass
+    keys = db.keys(pattern="*")
+    print "上位10件:\n"
+    for key in keys[:10]:
+        print "Key:{},Tags:{}".format(key,db.get(key))
+
+solve_63()
