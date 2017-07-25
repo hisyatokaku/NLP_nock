@@ -26,22 +26,24 @@ def solve_71(word):
 def solve_72():
 
     class Preprocess():
-
         def __init__(self, lines):
             self.lmtzr = WordNetLemmatizer()
-            self.lines = []
+            self.lines = self._tokenize(lines)
+
+        def __call__(self, lines):
+            pass
+
+        def _tokenize(self, lines):
+            ans = []
             for line in lines:
                 try:
                     line = unicode(line)
                 except:
                     pass
-
                 line = line.replace('\n')
                 line = line.split(' ')
-                self.lines.append(line)
-
-        def __call__(self, lines):
-            pass
+                ans.append(line)
+            return ans
 
         def clean_str(self, string):
             pass
@@ -52,13 +54,12 @@ def solve_72():
                     filter(lambda w: w != s_word, words)
             return words
 
-        def lemmatization(self, lines):
-            result = []
-            for (j, line) in enumerate(lines):
-                    #print "cant decode line:", line
+        def lemmatization(self):
+            ans = []
+            for (j, line) in enumerate(self.lines):
                 line = line.replace('\n', '')
-                lines[j] = line.split(' ')
-                line = lines[j]
+                self.lines[j] = line.split(' ')
+                line = self.lines[j]
                 for (i, word) in enumerate(line):
                     try:
                         line[i] = str(self.lmtzr.lemmatize(word))
@@ -66,12 +67,12 @@ def solve_72():
                     except:
                         line[i] = word
                 result.append(' '.join(line))
-            return result
+            return ans
 
     raw_lines = open('sentiment.txt').readlines()
 
-    processor = Preprocess()
-    after_lines = processor.lemmatization(raw_lines)
+    processor = Preprocess(raw_lines)
+    after_lines = processor.lemmatization()
 
 
 
